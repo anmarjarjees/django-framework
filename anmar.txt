@@ -1,0 +1,17 @@
+For running the app:
+> py manage.py runserver 
+
+
+Migration Commands (ONLY for the DATABASE/ When we change models.py):
+In Windows	=> In Mac	Usage:
+- py manage.py makemigrations => $ python3 manage.py makemigrations	
+- py manage.py showmigrations => $ python3 manage.py showmigrations	
+- py manage.py migrate	=> $ python3 manage.py migrate	
+
+Explaining the commands for both PC or MAC (the same action):
+-  First command: Generates migration files for later use
+- Second command: Show the existing migrations in our app
+- Third command: To apply all the existing migrations
+
+
+
