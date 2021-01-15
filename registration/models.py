@@ -134,6 +134,31 @@ class Student(models.Model):
     # But the company can give them the documents to read and unsderstand then to sign
     workshops = models.ManyToManyField('Workshop', blank=True)
 
+    # We will override the __str__(self) method
+    # To understand what this method is about, please check the comment for class Workshop
+    
+    # **********************************************************************************************
+    # NOTE: 
+    # Please notice that this function __str__(self) will become "useless" in the Admin page
+    # after adding/modifying the "list_display" attribute in admin.py file or any template html page
+    # We will keep this function for two reasons:
+    # 1. for learnign purpose, to review the basic solution before applying list_display
+    # 2. it works when you run ORM commands using Python Shell. 
+    #    Notice that if we comment this method and try to see the result with Python Shell
+    #    We will receive this: <Student: Student object (1)>
+    # **********************************************************************************************
+
+    def __str__(self):
+        # self is a python keyword => refers to the class "Student" itself
+        # to access any field/attribute/property within the class itself (or outside the class):
+        # self.field_name
+
+        # You can use this way (similar to JS)
+        # But notic that we used the function str() to cast/covnert the numeric data to be string
+        # return self.first +" "+ self.last + " | Course: " + self.course + " | Average: " + str(self.average)
+        # Or we can use the f string format:
+        return (f"{self.first} {self.last} | Cousre: {self.course} | Average: {self.average}")
+
 # ************************* Ending of Class Student *********************************
 
 
@@ -160,6 +185,9 @@ class Workshop(models.Model):
     # *********************************************************************************************
     workshop_name = models.CharField(max_length=40, default="")
 
+    # Notice that workshop_name is our python variable in this class
+    # But Django will display it as"Workshop name" in the adminstrative page (admin)
+
     # We need to define the realtionship between these two models (Py Classes or DB Tables): 
     # Student class and Workshop class
     # A student can have many workshops 
@@ -173,8 +201,33 @@ class Workshop(models.Model):
     ## - Can be defined on either model (we can put it inside Student or inside Workshop)
     # We will put it in the student model
  
+
+    # NOTE:
+    # When you visit the admin page:
+    # you will see the workshops are listed as:
+    # Workshop object (4)
+	# Workshop object (3)
+	# Workshop object (2)
+	# Workshop object (1)
+    # But we need the admin to see these workshop with the normal english title!
+    # Example:
+    # Instead of displaying "Workshop object (4)"
+    # it should be English label: "Employment Equity"
+
+    # we will overrid this built-in method __str__(self) and passing the argument "self" 
+    # since it's a method in Python class (always has to have self as argument)
+    # This method will tell Django what the string representation should be for this model
+    def __str__(self):
+        # Just return the attribute that attached to this method 
+        # instead of the default string "Workshop object 1"
+        return self.workshop_name # telling Python to return the name field of the workshop
+
 # For learning:
 # and so on for any class (model) you want to add to your project:
 class AnyClassName(models.Model):
     pass
+
+# Dear my students:
+# For more information about Fields, you can check Django documentations:
+# https://docs.djangoproject.com/en/3.0/ref/models/fields/
 

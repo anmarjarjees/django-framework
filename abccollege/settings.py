@@ -19,8 +19,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 # Anmar: We changed the secret key by adding the following code from Django docs:
 # SECRET_KEY = ''
+# Here is the pattern from Django docs:
+# with open('/etc/secret_key.txt') as f:
+    # SECRET_KEY = f.read().strip()
+
+# we can change the 'etc
+
 # For Heroku, we need to change the App setting by adding the secret key value:
 # Opening App Dashboard ==> settings ==> Config Vars
 
