@@ -51,7 +51,7 @@ class StudentAdmin(admin.ModelAdmin):
     ## 1. We have to use the field names exactly as we used in the class "Student" in the models.py file
     ## 2. We can include the Many-To-Many Field in this list (Which is in our case it's "workshops" field)
     ## 3. We don't have to list all the fields! We can pick some of them:
-    list_display = ['first','last','program_category','course','course_description','average','gender','graduation_date']
+    list_display = ['first','last','program_category','course','course_description','average','gender','graduation_date','last_modified_date']
 
 
 @admin.register(Workshop) # <= using the decorator "register"

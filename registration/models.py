@@ -80,11 +80,15 @@ class Student(models.Model):
     # To read more about DateField or DateTimeField: 
     # https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.DateField
     # check for another option named default
-    graduation_date = models.DateField(auto_now_add=True)
+    # Using this attribute: auto_now_add=True ==> will make the Date field invisible for adding/modifying
+    # We left it empty to put the date by ourselves
+    graduation_date = models.DateField()
 
     # Created or Update Date Field just for the admin(s) [Not for the end user]
     # To know when does this record updated or inserted or created
-    created_updated_date = models.DateField(auto_now=True)
+    # Using this attribute: auto_now=True ==> will make the Date field invisible for adding/modifying
+    # Django will insert the current date automatically
+    last_modified_date = models.DateField(auto_now=True)
 
     # average field for the final average
     # The FloatField the DecimalField class. 
@@ -142,7 +146,7 @@ class Student(models.Model):
     # Please notice that this function __str__(self) will become "useless" in the Admin page
     # after adding/modifying the "list_display" attribute in admin.py file or any template html page
     # We will keep this function for two reasons:
-    # 1. for learnign purpose, to review the basic solution before applying list_display
+    # 1. for learning purpose, to review the basic solution before applying list_display
     # 2. it works when you run ORM commands using Python Shell. 
     #    Notice that if we comment this method and try to see the result with Python Shell
     #    We will receive this: <Student: Student object (1)>
@@ -201,7 +205,6 @@ class Workshop(models.Model):
     ## - Can be defined on either model (we can put it inside Student or inside Workshop)
     # We will put it in the student model
  
-
     # NOTE:
     # When you visit the admin page:
     # you will see the workshops are listed as:
