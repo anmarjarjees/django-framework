@@ -23,32 +23,30 @@ from django.http import HttpResponse
 # yes, we can call it anything we want as a simple python function
 # if we don't specify => Error: home() takes 0 positional arguments but 1 was given
 def home(request):
-    # render() method:
-    # First Argument: request object is the first needed argument for the render() function 
-    # this argumetn request will be used again to send a request to render the required page
-    # Second Argument: is the name of the HTML template we want to use
-    # Third Argument [Optional]: the dictionary for the data to put in the template or to pass to the template
-    # the keys of this dictionary will be string variables 
-    # in this example we will use the key 'students' with the value of students variable
-    # render(request: HttpRequest, template_name, { could be empty OR anything we want to pass to this page } )
-    # { }
-    # { 'feild1': numeric_value, 'feild2': 'text_value', 'field3': variable_name }
-    # We can name the home page index.html as we used to do pure html
-    # But with Flask/Django we can name it anything
-    return render(request,'home.html')
+    # In Django, we cannot just return a simple text value!
+    # since we are sending a request as an argument for any view function
+    # We need this function to return just a simple text as a response just for testing
+    # We have to use HTTP Response return with the return statement
+    # in Django we have a class called "HttpResponse" that we we can use:
+    # the template: return HTTPResponse("<h1>Wellcome to our Home page!!!</h1>")
+    # or just use single quote
+    return HttpResponse('<h1>Wellcome to our Home page!!!</h1>')
 
 # def about ==> for the about us (me) page
 # about function has the required argument "request" and so on for all the functions
 def about(request):
-    return render(request,'about.html')
+    return HttpResponse('<h1>About Us</h1>')
 
 def contact(request):
-    return render(request,'contact.html')
+    return HttpResponse('<h1>Contact Us</h1>')
 
 # def student_detail ==> for the student detail page
 # this function requires the Student ID as a second parameter
 def student_detail(request, student_id):
-    return render(request,'request_detail.html')
+    # Either this way:
+    # return HttpResponse('<h1>Student Detail for id = ' + str(student_id) +'</h1>')
+    # Or this one "f fromat string":
+    return HttpResponse(f'<h1>Student Detail for id {student_id} </h1>')
 
 # *************************************************************
 # Notice that these two functions (views) are not being called
