@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+# We are importing the os to be used in this settings:
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,3 +135,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Anmar: Our code starting below:
+# We need to add a setting called: STATICFILES_DIRS (All in uppercase)
+# This constant will be equal to a list (array) that contains a list of directories 
+# Django will use this List to look at the directories for serving all the static assets
+# Heroku will use this constant list to find the static assets
+# Extra places for collectstatic to find static files: 
+# Read more: https://devcenter.heroku.com/articles/django-assets
+# NOTE:
+# Notice that we are using the "os" module, so we have to import it into this file at the top
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Notice that Django gave us this list "STATICFILES_DIRS" and we modified it:
+STATICFILES_DIRS = [
+    # To refer to the static folder at the top level of our project (that we created)
+    # we need to add an entry that calls os.path.join()
+    # with the argument "BASE_DIR" followed by the string 'static'
+    # BASE_DIR this constant is defined by Django at the top of this file (BASE_DIR) 
+    # BASE_DIR: refers to the directory where manage.py is created
+    # Which is the base directory of our project and that's why it's called BASE_DIR
+    os.path.join(BASE_DIR,'static'),
+    
+    # os.path.join():
+    # is a python built-in function that provides a cross platform way to build file paths
+]

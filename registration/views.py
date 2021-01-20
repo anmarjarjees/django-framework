@@ -31,16 +31,32 @@ def home(request):
     # the keys of this dictionary will be string variables 
     # in this example we will use the key 'students' with the value of students variable
     # render(request: HttpRequest, template_name, { could be empty OR anything we want to pass to this page } )
-    # { }
-    # { 'feild1': numeric_value, 'feild2': 'text_value', 'field3': variable_name }
+    # { } <= If they are empty we can just ignor them
+    # Pattern: { 'feild1': numeric_value, 'feild2': 'text_value', 'field3': variable_name }
     # We can name the home page index.html as we used to do pure html
     # But with Flask/Django we can name it anything
-    return render(request,'home.html')
+
+    # In Flask:
+    # return render_template("index.html", page_title="Our Program")
+    # In Django:
+    # return render ("index.html", 'page_title':'Our Program')
+    return render(request,'home.html',{ 'first_h1':'Welcome to Django! Your way to go'})
 
 # def about ==> for the about us (me) page
 # about function has the required argument "request" and so on for all the functions
 def about(request):
-    return render(request,'about.html')
+    module_name="Learning Django Framework"
+    course_list = ['HTML and CSS','Bootstrap','JavaScript','Python','Flask Framework','Django Framework']
+    # In Python we can use type() function to return the data type of the value any variable:
+    var_type = type(course_list)
+    return render(request,'about.html',
+    {
+     'language':'Python',
+     'module':module_name,
+     'module_id':11,'is_easy':True,
+     'course_list':course_list,
+     'var_type':var_type
+    })
 
 def contact(request):
     return render(request,'contact.html')
@@ -48,7 +64,7 @@ def contact(request):
 # def student_detail ==> for the student detail page
 # this function requires the Student ID as a second parameter
 def student_detail(request, student_id):
-    return render(request,'request_detail.html')
+    return render(request,'request_detail.html',{})
 
 # *************************************************************
 # Notice that these two functions (views) are not being called
