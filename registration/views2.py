@@ -4,14 +4,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-# We will need to import the class "Student" to access all student records in the database:
-# So we can use the same statement that we used before with ORM and Python Shell
-# being very specific by writing the applicating name
-# from registration.models import Student 
-# Or we can just use .models to refer to any application name
-from .models import Student # with capital S for Student because it's a class
-# Then we can use the Student model to make queries against the student table 
-
 # We need to import the class "Http404" from "django.http" module
 # we use this class to let Django generate its own "404 page not found" error
 # This class we needed for the wrong url
@@ -29,25 +21,24 @@ from django.http import Http404
 # yes, we can call it anything we want as a simple python function
 # if we don't specify => Error: home() takes 0 positional arguments but 1 was given
 def home(request):
-    # In the home page, we will display all the students record (from our database)!
-    # this function main job is to query the database table(s)
-    # We need to get all the records from the database:
-    # Yes, we will use again: Query data with the Django ORM (Object Relational Mapper) 
-    # We used [Python Shell] to practise these commands
-    # We used: Student.objects.all() => display all the instances of this model (class: Student)
-    # This "home" function should use the same Django ORM to fetch all the records
-    # we will start with a query for all the students
-    # we will use the same command that we learnt before inside the project Py shell window
-    # (refer to my ORM topic in the pdf file)
-    # and we can assign the result of all these objects into a variable:
-    students = Student.objects.all()  # This command will grab all the objects in our student table
-    # Note: We will have this Error: name 'Student' is not defined
-    # If we don't import the class "Student"
-    return render(request,'home.html',
-    { 
-        'first_h1':'Welcome to Django! Your way to go',
-        'students': students,
-    })
+    # render() method:
+    # First Argument: request object is the first needed argument for the render() function 
+    # this argumetn request will be used again to send a request to render the required page
+    # Second Argument: is the name of the HTML template we want to use
+    # Third Argument [Optional]: the dictionary for the data to put in the template or to pass to the template
+    # the keys of this dictionary will be string variables 
+    # in this example we will use the key 'students' with the value of students variable
+    # render(request: HttpRequest, template_name, { could be empty OR anything we want to pass to this page } )
+    # { } <= If they are empty we can just ignore them
+    # Pattern: { 'feild1': numeric_value, 'feild2': 'text_value', 'field3': variable_name }
+    # We can name the home page index.html as we used to do pure html
+    # But with Flask/Django we can name it anything
+
+    # In Flask:
+    # return render_template("index.html", page_title="Our Program")
+    # In Django:
+    # return render ("index.html", 'page_title':'Our Program')
+    return render(request,'home.html',{ 'first_h1':'Welcome to Django! Your way to go'})
 
 # def about ==> for the about us (me) page
 # about function has the required argument "request" and so on for all the functions

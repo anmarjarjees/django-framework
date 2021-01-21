@@ -8,6 +8,72 @@
 {% block title %}Django Main Page{% endblock %}
 
 {% block content %}
-    <h1>{{ first_h1 }}</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi culpa consequatur, vel possimus, voluptates aut, repellat debitis soluta ipsam sit quia eius obcaecati earum maiores aperiam illum quo omnis corporis?</p>
+<h1>{{ first_h1 }}</h1>
+<!-- <p>{ { students } }</p> -->
+
+<!-- 
+    Since we need to display a list of x number of student(s) 
+    We can use for loop (same as Flask):
+
+    Pure Python:
+    for student in studnets:
+         print (student.fist)
+-->
+{% for student in students %}
+<!-- <p>{ { student } }</p> -->
+
+<!-- 
+        We will convert the first and last (full name) to be a hyperlink,
+        this link is to open the template "student_detail.html"
+        href = "student_detail.html"
+        
+        href = "{ { url 'student_detail' student.id } }"
+        Django will make it: registration/1
+
+        Remember our path() method in the urls.py:
+        path('registration/<int:student_id>/', views.student_detail, name='student_detail')
+        so name="student_detail" the value of the name attribute will be used in the url tag:
+
+        - Add the argument "student_detail" that corresponds with that URL pattern: 
+        Examples:
+        { % url 'home' % } => to generate the path to the home page
+        { % url 'student_detail' % } => to generate the path to the student_detail page
+        { % url 'about' % } ==> to generate the path to the about page
+                
+        - Now what about 'registration/<int:student_id>/'
+        - This URL pattern requires a "student_id" argument, so we need to pass "student_id":
+        { % url 'student_detail' student_id % } 
+        Notice that the id is required based on the path() method in urlpatterns list "urls.py"
+                
+        NOTE: Please be careful that we type the student id as: studnet.id
+        { % url 'student_detail' studnet.id % }   
+        
+        so in between href value we will place the URL TAG:
+        href="{ % url .... % }"
+     -->
+    <h3>
+        <!-- { % url 'student_detail' studnet.id % } -->
+        <a href="{% url 'student_detail' student.id %}">
+            {{ student.first }} {{ student.last }} - ID#: {{ student.id }}
+        </a>
+    </h3>
+<!-- Adding a few details for each student -->
+<!-- 
+        Because program_category field is optional (blank=True) that it might be empty! 
+        So we should add an if statement to check 
+        if this field (field's value) is present than display its content: 
+    -->
+<p><b>Program Category:</b>
+    <!-- If student.program_category is True or has any value then print it: -->
+    {% if student.program_category %}
+    {{ student.program_category }}
+    {% else %}
+    Unspecified!
+    {% endif %}
+</p>
+<p><b>Course:</b> {{ student.course }}</p>
+<p><b>Graduation Date:</b> {{ student.graduation_date}}</p>
+<hr>
+{% endfor %}
+
 {% endblock %}

@@ -150,6 +150,8 @@ class Student(models.Model):
     # 2. it works when you run ORM commands using Python Shell. 
     #    Notice that if we comment this method and try to see the result with Python Shell
     #    We will receive this: <Student: Student object (1)>
+    # 3. it worsk when we just want to output/dispaly a student object in a template page (for testing)
+    #    {{ student }}
     # **********************************************************************************************
 
     def __str__(self):

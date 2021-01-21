@@ -41,8 +41,20 @@ with open('abccollege/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# NOTE: 
+# if we make DEBUG = False, we do have to specify at least one HOST as shown below:
+# otherwise, you will recieve this error: 
+# CommandError: You must set settings.ALLOWED_HOSTS if DEBUG is False.
+# Examples: 
+# ********
+# Heroku: The full url is: 'https://anmar-django-demo.herokuapp.com/'
+# ALLOWED_HOSTS = ['anmar-django-demo.herokuapp.com']
 
+# Local Server (PC): The full url is: 'http://127.0.0.1:8000'
+# ALLOWED_HOSTS = ['127.0.0.1']
+
+# We can keep it empty for local development
+ALLOWED_HOSTS = []
 
 # Application definition
 
