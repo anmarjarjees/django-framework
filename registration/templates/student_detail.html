@@ -1,7 +1,122 @@
 {% extends 'base.html' %}
 
+<!-- 
+    The following block "block title" is optional 
+    if you want to create a unique title for each html page: 
+-->
+{% block title %}Student Details{% endblock %}
+
+
 {% block content %}
-    <h1>Student Detail</h1>
-    <p>the id of this student is {{ student_id }}</p>
-{% endblock %}
+<h1>Student Detail</h1>
+
+<!-- 
+        for testing:
+        the output for { { student } } will be: Martin Smith | Cousre: MDM | Average: 88.00
+        because in our model (class) Student
+        we have this function: def __str__(self)
+        this function returns => (f"{self.first} {self.last} | Cousre: {self.course} | Average: {self.average}")
+     -->
+<!-- { { student } } -->
+<br>
+<!-- for more testing: -->
+<!-- { { student.graduation_date } } -->
+
+<h3>{{ student.first|lower |capfirst }} {{ student.last|lower |capfirst }} - ID#: {{ student.id }}</h3>
+
+<!-- Adding all the details for this specific student: -->
+<!-- 
+        Because program_category field is optional (blank=True) that it might be empty! 
+        So we should add an if statement to check 
+        if this field (field's value) is present than display its content: 
+    -->
+<p><b>Program Category:</b>
+    <!-- If student.program_category is True or has any value then print it: -->
+    {% if student.program_category %}
+    {{ student.program_category }}
+    {% else %}
+    Unspecified!
+    {% endif %}
+</p>
+
+<p><b>Course Name:</b> {{ student.course }}</p>
+<p><b>Average:</b> {{student.average}}</p>
+<!-- Task: add if condition for the gender: -->
+<p><b>Gender:</b> {{student.gender}}</p>
+
+<!-- class="hidden" to be used with our JavaScript code show/hide this paragaraph -->
+<p><b>Course Description:</b><br> {{ student.course_description }}</p>
+
+<!-- 
+    graduation_date:
+    using student.graduation_date => Nov. 10, 2020 
+
+    Format: Friday - October 18, 2019
     
+    We need to format the data nicely using date filtter
+    the pipe "|" then "filter name" then ":" then "the arguments" inside double quotes 
+    
+    |date:"M d Y"
+
+    check this links: 
+    https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#date
+    
+    l	=> Day of the week, textual, long.	'Friday'
+    F	=> Month, textual, long.	'January'
+
+    the defualt example: March 13, 2020
+    Firday - March 13, 2020
+    {{ value|date:"D d M Y" }}
+-->
+<p><b>Graduation Date:</b> {{student.graduation_date|date:"l - F d, Y"}}</p>
+
+<!-- 
+    Because wrokshops can have nothing, one value, or many values
+    We need to use a method called .all() to get all the records in the workshops field
+    Remember we used this command: student.workshops.all()
+    We can use the Many-To-Many field "workshops" with .all() method 
+    to view the values of the current student's workshop name 
+    When we had to parctise ORM usign Python shell through Django
+
+    if we use exactly the same commnad "student.workshops.all()"
+    we will recieve this error: 
+    Could not parse the remainder: '()' from 'student.workshops.all()'
+
+    Solution: With Jinja Template, we have to remove the '()'
+
+    **** Why: 
+    If all() is a method (function) so why we have to remove ()!!!!
+    As part of Django Template syntax, 
+    any method that has no arguments we need to omit the parantheses!
+    if you write it like workshops.all() ==> this will give us an error
+    we have to type it like this workshops.all
+
+    .all => Notice that .all is a method that has no arguments
+
+    The output:
+    <QuerySet [<Workshop: Employment Contract>, <Workshop: Employment Rights>]>
+
+    In pure Python:
+    for one_item in items_list:
+        print (one_item)
+
+    Before printing the workshop(s),
+    let's check first if the student has any workshop
+ -->
+ {% if student.workshops.all %}
+<p><b>Workshop(s):</b>
+    <!-- Just for initial test: -->
+    <!-- { { student.workshops.all } } -->
+
+    <!-- 
+        Our lists is named "student.workshops.all" 
+        "one_ws" is just a variable that refers to one workshop name
+    -->
+    <ul>
+        {% for one_ws in student.workshops.all %}
+        <li>{{one_ws }}</li>
+        {% endfor %}
+    </ul>
+</p>
+{% endif %}
+{% endblock %}

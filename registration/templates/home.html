@@ -54,7 +54,23 @@
     <h3>
         <!-- { % url 'student_detail' studnet.id % } -->
         <a href="{% url 'student_detail' student.id %}">
-            {{ student.first }} {{ student.last }} - ID#: {{ student.id }}
+            <!-- 
+                We should display the first and last name with first letter to be capital:
+                Example: Martin Smith
+
+                To ensure this format, we will use Django filter:
+                { { variable|filter } } => variable with pipe character "|" to use a template filter 
+                
+                We use a built-in template filter named "capfirst"
+                capfirst => wil only look at the first letter
+
+                We used lower filter first to make sure that all letters are in lower case
+                then we used capfirst later to capitalize the first letter only
+                
+                To learn more about filters:
+                https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#filter
+            -->
+            {{ student.first|lower |capfirst }} {{ student.last|lower |capfirst }} - ID#: {{ student.id }}
         </a>
     </h3>
 <!-- Adding a few details for each student -->

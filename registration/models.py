@@ -117,7 +117,7 @@ class Student(models.Model):
     ## maybe we might have this average: 100.00!!!!
     average=models.DecimalField(max_digits=4, decimal_places=2, null=True)
     # if you want it to be an integer data type field: models.IntegerField(null=True)
-    # For more info: https://www.geeksforgeeks.org/decimalfield-django-models/
+    # For more info: https://docs.djangoproject.com/en/3.0/ref/models/fields/#null
 
     # To recap/review:
     # In sql dabatase, we can have relations between tables:

@@ -71,16 +71,27 @@ def contact(request):
 # def student_detail ==> for the student detail page
 # this function requires the Student ID as a second parameter
 def student_detail(request, student_id):
+    # run the query for that specific student based on its id number:
+    # We need to write the same queries against our database!
+    # We can just go to review the "ORM commands" in the in-class notes and that's it 
+    # The same commands we can just place them here:
+
+    student = Student.objects.get(id=student_id)
+    
     # assuming we have only 20 students, if the id is > 20 => "Student not found!"
-    if student_id > 20:
+    # if student_id > 20:
         # we need to return 404 explicitly from Django (Not the default 404 of the browser)
         # Since we imported the class "Http404" 
         # we can use it to raise an error message with any string we want
         # using the built-in raise function with the class "Http404"
         # HTTP404('Any message you want')
-        raise Http404('Sorry, student not found!')
+    #    raise Http404('Sorry, student not found!')
 
-    return render(request,'student_detail.html',{'student_id': student_id})
+
+
+
+
+    return render(request,'student_detail.html',{'student': student})
 
 # *************************************************************
 # Notice that these two functions (views) are not being called

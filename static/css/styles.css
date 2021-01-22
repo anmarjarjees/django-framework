@@ -1,0 +1,11 @@
+/* 
+Bootstrap uses this class "carousel-inner"
+the contains the image + all the info
+
+We will target every image inside this class:
+*/
+.carousel-inner img {
+    border-top: 2px inset #5f5fb9;
+    border-bottom: 2px inset #5f5fb9;
+    margin-bottom: 10px;
+}
