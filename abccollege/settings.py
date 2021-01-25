@@ -15,6 +15,8 @@ from pathlib import Path
 # We are importing the os to be used in this settings:
 import os
 
+import django_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,7 +41,8 @@ with open('abccollege/secret_key.txt') as f:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# True for Development and False for deployment
+DEBUG = False
 
 # NOTE: 
 # if we make DEBUG = False, we do have to specify at least one HOST as shown below:
@@ -69,6 +72,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Anmar: Here is the comment and the item we copied from Heroku doc
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,6 +84,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Anmar: We need to add this constant "STATICFILES_STORAGE" based on Heroku docs
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'abccollege.urls'
 
@@ -172,3 +184,9 @@ STATICFILES_DIRS = [
     # os.path.join():
     # is a python built-in function that provides a cross platform way to build file paths
 ]
+
+# Based on Heroku docs:
+# We need to add the following to the bottom of settings.py:
+# The link: https://devcenter.heroku.com/articles/django-app-configuration#settings-py-changes
+# Activate Django-Heroku.
+django_heroku.settings(locals())
