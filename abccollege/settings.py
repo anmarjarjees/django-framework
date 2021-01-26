@@ -43,7 +43,7 @@ if os.path.exists("secret_key.txt"):
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # True for Development and False for deployment
-DEBUG = False
+DEBUG = True
 
 # NOTE: 
 # if we make DEBUG = False, we do have to specify at least one HOST as shown below:
