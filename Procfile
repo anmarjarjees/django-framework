@@ -1,1 +1,1 @@
-web: gunicorn abcollege.wsgi 
+web: gunicorn abccollege.wsgi
