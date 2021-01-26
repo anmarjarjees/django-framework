@@ -35,9 +35,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # For Heroku, we need to change the App setting by adding the secret key value:
 # Opening App Dashboard ==> settings ==> Config Vars
-
-with open('abccollege/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+# It's better to have if condition to check if the file is exist or not:
+if os.path.exists("secret_key.txt"):
+    with open('abccollege/secret_key.txt') as f:
+        SECRET_KEY = f.read().strip()
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
