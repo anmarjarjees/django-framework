@@ -1,1 +1,1 @@
-web: gunicorn abccollege.wsgi
+web: gunicorn abccollege.wsgi --log-file –
