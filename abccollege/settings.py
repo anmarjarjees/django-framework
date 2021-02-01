@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = ''
 # Here is the pattern from Django docs:
 # with open('/etc/secret_key.txt') as f:
-    # SECRET_KEY = f.read().strip()
+# SECRET_KEY = f.read().strip()
 
 # we can change the 'etc
 
@@ -45,14 +45,15 @@ if os.path.exists("abccollege/secret_key.txt"):
 # True for Development and False for deployment
 DEBUG = True
 
-# NOTE: 
+# NOTE:
 # if we make DEBUG = False, we do have to specify at least one HOST as shown below:
-# otherwise, you will recieve this error: 
+# otherwise, you will receive this error:
 # CommandError: You must set settings.ALLOWED_HOSTS if DEBUG is False.
-# Examples: 
-# ********
-# Heroku: The full url is: 'https://anmar-django-demo.herokuapp.com/'
-# ALLOWED_HOSTS = ['anmar-django-demo.herokuapp.com']
+
+# Examples:
+# *********
+# Heroku: The full url is: 'https://anmar-django-demo2.herokuapp.com/'
+# ALLOWED_HOSTS = ['anmar-django-demo2.herokuapp.com']
 
 # Local Server (PC): The full url is: 'http://127.0.0.1:8000'
 # ALLOWED_HOSTS = ['127.0.0.1']
@@ -163,10 +164,10 @@ STATIC_URL = '/static/'
 
 # Anmar: Our code starting below:
 # We need to add a setting called: STATICFILES_DIRS (All in uppercase)
-# This constant will be equal to a list (array) that contains a list of directories 
+# This constant will be equal to a list (array) that contains a list of directories
 # Django will use this List to look at the directories for serving all the static assets
 # Heroku will use this constant list to find the static assets
-# Extra places for collectstatic to find static files: 
+# Extra places for collectstatic to find static files:
 # Read more: https://devcenter.heroku.com/articles/django-assets
 # NOTE:
 # Notice that we are using the "os" module, so we have to import it into this file at the top
@@ -177,11 +178,11 @@ STATICFILES_DIRS = [
     # To refer to the static folder at the top level of our project (that we created)
     # we need to add an entry that calls os.path.join()
     # with the argument "BASE_DIR" followed by the string 'static'
-    # BASE_DIR this constant is defined by Django at the top of this file (BASE_DIR) 
+    # BASE_DIR this constant is defined by Django at the top of this file (BASE_DIR)
     # BASE_DIR: refers to the directory where manage.py is created
     # Which is the base directory of our project and that's why it's called BASE_DIR
-    os.path.join(BASE_DIR,'static'),
-    
+    os.path.join(BASE_DIR, 'static'),
+
     # os.path.join():
     # is a python built-in function that provides a cross platform way to build file paths
 ]

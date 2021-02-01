@@ -16,7 +16,7 @@
     We can use for loop (same as Flask):
 
     Pure Python:
-    for student in studnets:
+    for student in students:
          print (student.fist)
 -->
 {% for student in students %}
@@ -45,16 +45,16 @@
         { % url 'student_detail' student_id % } 
         Notice that the id is required based on the path() method in urlpatterns list "urls.py"
                 
-        NOTE: Please be careful that we type the student id as: studnet.id
-        { % url 'student_detail' studnet.id % }   
+        NOTE: Please be careful that we type the student id as: student.id
+        { % url 'student_detail' student.id % }   
         
         so in between href value we will place the URL TAG:
         href="{ % url .... % }"
      -->
-    <h3>
-        <!-- { % url 'student_detail' studnet.id % } -->
-        <a href="{% url 'student_detail' student.id %}">
-            <!-- 
+<h3>
+    <!-- { % url 'student_detail' student.id % } -->
+    <a href="{% url 'student_detail' student.id %}">
+        <!-- 
                 We should display the first and last name with first letter to be capital:
                 Example: Martin Smith
 
@@ -70,9 +70,9 @@
                 To learn more about filters:
                 https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#filter
             -->
-            {{ student.first|lower |capfirst }} {{ student.last|lower |capfirst }} - ID#: {{ student.id }}
-        </a>
-    </h3>
+        {{ student.first|lower |capfirst }} {{ student.last|lower |capfirst }} - ID#: {{ student.id }}
+    </a>
+</h3>
 <!-- Adding a few details for each student -->
 <!-- 
         Because program_category field is optional (blank=True) that it might be empty! 
